@@ -6,9 +6,9 @@
 
 > // TODO do this later :/
 
-Death to Scrum. 
+death to Scrum. 
 
-vive la eXtreme Go Horse.
+eXtreme Go Horse.
 
 
 <!---## My Favourite Tools

@@ -1,0 +1,120 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<html>
+<div align="center">
+    <h1 style="font-family: 'JetBrains Mono'"> usymmij </h1>
+</div>
+
+<br>
+
+<div align="center">
+    <canvas width="600px" height="240px" id="pipes-canvas">
+</align>
+
+<script type="module" >
+    // this ultimately failed because github does not support js in readme's :(
+
+
+    // an adaptation of pipes.sh into js for github 
+    // 
+    // not really a fully functional project its just for my readme
+    // 
+    // original pipes.sh:
+    // https://github.com/pipeseroni/pipes.sh
+    //
+    
+    const canvas = document.getElementById("pipes-canvas");
+    const ctx = canvas.getContext("2d");
+
+    
+
+  
+    const MAX=32768  // Bash RANDOM maximum + 1
+    const f=24     // fps
+    const s=0.85     // chance of straight fitting
+    const r=2000   // characters limit
+    const t=0      // iteration counter for -r character limit
+    const w=600     // terminal size
+    const h=240
+    const c=10 // character grid size
+    const xstep = w/c
+    const ystep = h/c
+    const colourLow = 40
+    const colourHigh = 220
+    let p=1      // number of pipes
+
+    const pipes = [
+        [[0,.4,1,.2]],
+        [[.4,0,0.2,1]],
+        [[0,.4,.6,.2],[.4,.4,.2,.6]],
+        [[0,.4,.6,.2],[.4,0,.2,.6]],
+        [[.4,.4,.6,.2],[.4,0,.2,.6]],
+        [[.4,.4,.6,.2],[.4,.4,.2,.6]],
+    ]//"━┃┓┛┗┏" 
+
+    // display rect in locations from (0,0) to (24,9)
+    const drawPipe = (pipe, loc) => {
+        for (let rect of pipes[pipe]){
+            let position = [...rect].map((x) => x * c);
+
+            position[0] += loc[0] * c
+            position[1] += loc[1] * c
+            ctx.fillRect(...position)
+        }
+    }
+
+    ctx.fillStyle = "#505050";
+    ctx.fillRect(0,0,w,h)
+    ctx.fillStyle = "rgb(1,0,0)";
+
+    // 24x24 pixel, 25 x 10 grid
+    const randInt = (limit) => Math.floor(Math.random() * limit)
+
+    let x = randInt(w)
+    let y = randInt(h)
+    let dir = randInt(4)
+    let newdir = 0
+    let colour = [179,0,0]
+    let inc = 2
+
+    const animate = () => {
+        window.setTimeout(window.requestAnimationFrame(animate), 1000/f);
+        if (newdir==0){
+            drawPipe(dir % 2, [x,y]);
+        } else {
+            let pipe = ((dir+1) % 2) ? (dir + (newdir > 0)) : (dir + (newdir > 0) + 2)%4
+            pipe = (pipe + 8) % 6
+            drawPipe(pipe, [x,y])
+        }
+
+        dir = (dir + newdir + 4) % 4;
+        x += (1-(dir % 2)) * - (dir - 1) + xstep
+        y += ((dir % 2)) * (dir - 2) + ystep
+        x %= xstep
+        y %= ystep
+
+        newdir = (Math.random() > s) * (2*randInt(2)-1) // first rand decides straight fitting, 
+                                                        // second decides direction if not straight
+
+
+        colour[2-inc] = (colour[2-inc] + colourHigh-1) % colourHigh
+        colour[inc] = (colour[inc] + 1)
+        if (colour[2-inc] == colourLow) {inc = 2-inc}
+        ctx.fillStyle = "rgb("+colour[0]+" 0 "+colour[2] + ")";
+
+        p += 1
+        if (p > r){
+            p = 0
+            
+            ctx.fillStyle = "#505050";
+            ctx.fillRect(0,0,w,h)
+            ctx.fillStyle = "#8B15A2A0";
+        }
+    }
+
+    animate();
+
+</script>
+</html>

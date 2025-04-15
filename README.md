@@ -23,7 +23,7 @@ OPTIONS
             C/C++, Rust, Haskell, Python, Lua, SQL, JS, Java, Matlab
             
         -o, --os
-            Arch Linux, Debian, Windows
+            Arch Linux, Debian
             
         -t, --typesetter
             Typst, LaTeX

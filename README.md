@@ -9,12 +9,12 @@ SYNOPSIS
         usymmij [OPTION] ... [FILE] ...
 
 DESCRIPTION
-        MASc in Electrical and Computer Engineering @ uoft
+        MASc in Electrical and Computer Engineering @ uoft [current]
         BESc in Software Engineering @ uwo 2025
 
-        Aspiring computer architect.
+        Current Computer Architecture Student
 
-        Vivid dog enthusiast, raging lover of coffee.
+        I love dogs, coffee, and birds
 
         FRC alum / mentor / vol 
 

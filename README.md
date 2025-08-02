@@ -12,7 +12,7 @@ DESCRIPTION
         MASc in Electrical and Computer Engineering @ uoft [current]
         BESc in Software Engineering @ uwo 2025
 
-        Current Computer Architecture Student
+        Computer Architecture Student
 
         I love dogs, coffee, and birds
 
